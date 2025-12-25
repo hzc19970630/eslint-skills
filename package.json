@@ -1,11 +1,11 @@
 {
   "name": "eslint-code-reviewer",
   "version": "1.0.0",
-  "description": "A skill to validate and fix git changed files using user's project ESLint configuration",
-  "main": "validate-and-fix.js",
+  "description": "A Claude Code skill that automatically validates and fixes code quality issues in git changed files using ESLint configuration",
+  "main": "skills/eslint-reviewer/scripts/validate-and-fix-v2.js",
   "scripts": {
-    "start": "node server.js",
-    "validate": "node validate-and-fix.js",
+    "validate": "node skills/eslint-reviewer/scripts/validate-and-fix-v2.js",
+    "validate:fix": "node skills/eslint-reviewer/scripts/validate-and-fix-v2.js --fix",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
