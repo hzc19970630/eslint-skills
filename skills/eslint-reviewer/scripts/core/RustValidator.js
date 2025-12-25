@@ -23,9 +23,10 @@ class RustValidator extends Validator {
 
   /**
    * 检查前置条件
+   * @param {string[]} files - 可选，要验证的文件列表。用于判断是否需要检查 Cargo.toml
    * @returns {Object} { passed: boolean, message?: string }
    */
-  checkPrerequisites() {
+  checkPrerequisites(files = null) {
     // 检查 Rust/Cargo 是否安装
     if (!this.commandRunner.isAvailable('cargo')) {
       return {
@@ -44,15 +45,21 @@ class RustValidator extends Validator {
       };
     }
 
-    // 检查是否是 Cargo 项目
-    const fs = require('fs');
-    const path = require('path');
-    const cargoToml = path.join(process.cwd(), 'Cargo.toml');
-    if (!fs.existsSync(cargoToml)) {
-      return {
-        passed: false,
-        message: 'Not a Rust/Cargo project. Cargo.toml not found.'
-      };
+    // 只有在有 Rust 文件时才检查 Cargo.toml
+    // 如果没有提供文件列表，或者文件列表中有 .rs 文件，才检查 Cargo.toml
+    const hasRustFiles = !files || files.some(file => file.endsWith('.rs'));
+    
+    if (hasRustFiles) {
+      // 检查是否是 Cargo 项目
+      const fs = require('fs');
+      const path = require('path');
+      const cargoToml = path.join(process.cwd(), 'Cargo.toml');
+      if (!fs.existsSync(cargoToml)) {
+        return {
+          passed: false,
+          message: 'Not a Rust/Cargo project. Cargo.toml not found. Rust files require a Cargo project.'
+        };
+      }
     }
 
     return { passed: true };

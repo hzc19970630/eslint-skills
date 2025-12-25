@@ -90,13 +90,21 @@ class MultiLanguageSkill {
           ];
         }
       } else {
-        // 验证现有配置是否匹配项目
-        const validation = stackDetector.validateConfig(process.cwd(), this.config);
-        if (!validation.valid && this.logger.verbose) {
-          this.logger.warn('Config validation issues:');
-          validation.issues.forEach(issue => {
-            this.logger.warn(`  - ${issue.message}`);
-          });
+        // 验证现有配置是否匹配项目（可选，不影响执行）
+        // 注意：这里只是提示，不会阻止执行
+        try {
+          const StackDetectionHelper = require('./utils/StackDetectionHelper');
+          const helper = new StackDetectionHelper({ detector: stackDetector });
+          const validation = helper.validateConfig(process.cwd(), this.config);
+          if (!validation.valid && this.logger.verbose) {
+            this.logger.warn('Config validation issues (informational only):');
+            validation.issues.forEach(issue => {
+              this.logger.warn(`  - ${issue.message}`);
+            });
+          }
+        } catch (error) {
+          // 忽略验证错误，不影响主流程
+          this.logger.debug('Config validation skipped:', error.message);
         }
       }
     } catch (error) {
@@ -213,14 +221,7 @@ class MultiLanguageSkill {
       // 报告开始
       this.reporter.reportStart();
 
-      // 检查前置条件
-      const prerequisites = this.validator.checkPrerequisites();
-      if (!prerequisites.passed) {
-        this.reporter.reportError(prerequisites.message);
-        process.exit(1);
-      }
-
-      // 检测文件
+      // 先检测文件，以便只检查实际会被使用的验证器
       const detectedFiles = await this.fileDetector.detect({
         includeStaged: options.includeStaged !== false,
         includeUnstaged: options.includeUnstaged !== false,
@@ -233,6 +234,21 @@ class MultiLanguageSkill {
       if (files.length === 0) {
         this.reporter.reportInfo('No changed files found for linting');
         return { success: true, files: [] };
+      }
+
+      // 检查前置条件（传入文件列表，只检查实际会被使用的验证器）
+      const prerequisites = this.validator.checkPrerequisites(files);
+      if (!prerequisites.passed) {
+        this.reporter.reportError(prerequisites.message);
+        process.exit(1);
+      }
+
+      // 如果有警告，显示但不阻止执行
+      if (prerequisites.warnings && prerequisites.warnings.length > 0) {
+        this.logger.warn('\n⚠️  Some validators have prerequisites issues (will be skipped):');
+        prerequisites.warnings.forEach(warning => {
+          this.logger.warn(`   - ${warning}`);
+        });
       }
 
       // 按语言分组显示
