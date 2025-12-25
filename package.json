@@ -4,6 +4,7 @@
   "description": "A skill to validate and fix git changed files using user's project ESLint configuration",
   "main": "validate-and-fix.js",
   "scripts": {
+    "start": "node server.js",
     "validate": "node validate-and-fix.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -22,7 +23,9 @@
   "devDependencies": {
     "eslint": "^8.57.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.18.2"
+  },
   "peerDependencies": {
     "eslint": ">=7.0.0"
   },

@@ -1,0 +1,12 @@
+/* Example CSS file - if your ESLint is configured with stylelint plugin */
+
+.container {
+    margin: 0;
+    padding: 20px;
+}
+
+.button {
+  background-color: #007bff;
+    color: white;
+  border: none;
+}

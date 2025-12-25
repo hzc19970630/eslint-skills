@@ -1,0 +1,25 @@
+{
+  "name": "eslint-code-reviewer",
+  "version": "1.0.0",
+  "description": "A Claude Code skill that automatically validates and fixes code quality issues in git changed files using ESLint configuration",
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "skills": [
+    {
+      "name": "eslint-reviewer",
+      "description": "Automatically validates and fixes code using ESLint rules. Detects changed files in git, runs ESLint validation, and can automatically fix issues. IMPORTANT: This skill ONLY runs if the user's project has an ESLint configuration file.",
+      "triggers": [
+        "check code quality",
+        "run eslint",
+        "validate git changes",
+        "lint my code",
+        "fix eslint errors",
+        "eslint"
+      ]
+    }
+  ]
+}
