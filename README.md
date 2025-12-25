@@ -120,6 +120,30 @@ $ npx eslint file1.js file2.js
 - [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) installed
 - Your project has ESLint configuration (`.eslintrc.*` or `eslint.config.js`)
 
+<details>
+<summary><b>🚧 Don't have ESLint config yet?</b></summary>
+
+**Quick setup (30 seconds):**
+
+```bash
+# Interactive setup (recommended)
+npm init @eslint/config
+
+# Or install a popular preset:
+npm install --save-dev eslint eslint-config-airbnb
+```
+
+**Popular presets:**
+- **Airbnb** - Most popular, strict (React/Vue recommended)
+- **Standard** - No semicolons, simple
+- **Google** - Google's style guide
+
+**✨ Coming Soon:** Auto-generate ESLint config based on your code style!
+
+Want this feature? Drop a ⭐ and [vote here](https://github.com/hzc19970630/eslint-skills/discussions)!
+
+</details>
+
 ### Installation
 
 ```bash
@@ -304,11 +328,32 @@ See [Architecture Guide](skills/eslint-reviewer/scripts/README.md) for details.
 <details>
 <summary><b>Q: "No ESLint configuration found" error</b></summary>
 
-**A:** This skill requires an existing ESLint setup. Create one:
+**A:** This skill currently requires an existing ESLint setup.
+
+**Quick fix (30 seconds):**
 
 ```bash
+# Option 1: Interactive setup (easiest)
 npm init @eslint/config
+
+# Option 2: Use Airbnb preset (popular for React)
+npm install --save-dev eslint eslint-config-airbnb eslint-plugin-react
+
+# Option 3: Use Standard preset (simple)
+npm install --save-dev eslint eslint-config-standard
 ```
+
+**Then create `.eslintrc.json`:**
+
+```json
+{
+  "extends": "airbnb"  // or "standard"
+}
+```
+
+**✨ Coming Soon:** We're working on auto-generating ESLint config based on your code style!
+
+Want this feature? [Vote here](https://github.com/hzc19970630/eslint-skills/discussions) 🗳️
 
 </details>
 
