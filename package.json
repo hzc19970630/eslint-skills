@@ -1,7 +1,7 @@
 {
   "name": "eslint-code-reviewer",
   "version": "1.0.0",
-  "description": "A skill to validate and fix git changed files using ESLint configuration",
+  "description": "A skill to validate and fix git changed files using user's project ESLint configuration",
   "main": "validate-and-fix.js",
   "scripts": {
     "validate": "node validate-and-fix.js",
@@ -13,14 +13,20 @@
     "git",
     "validation",
     "code-quality",
-    "skill"
+    "skill",
+    "claude-code",
+    "linter"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.57.0"
   },
-  "dependencies": {
-    "chalk": "^4.1.2"
+  "dependencies": {},
+  "peerDependencies": {
+    "eslint": ">=7.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

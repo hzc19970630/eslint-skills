@@ -2,11 +2,22 @@
 
 A Claude Code skill that automatically validates and fixes code quality issues in git changed files using ESLint configuration.
 
+## Important Prerequisites
+
+**This skill requires an ESLint configuration file in your project to run.**
+
+Supported config formats:
+- `.eslintrc.json`, `.eslintrc.js`, `.eslintrc.yml`, `.eslintrc.yaml`
+- `eslint.config.js`, `eslint.config.mjs`, `eslint.config.cjs` (flat config)
+- `eslintConfig` field in `package.json`
+
+If no ESLint config is found, the skill will not execute.
+
 ## Features
 
 - Automatically detects git changed files (staged, unstaged, and untracked)
-- Filters JavaScript/TypeScript files for validation
-- Runs ESLint validation based on project configuration
+- Filters lintable files: JavaScript, TypeScript, Vue, CSS, SCSS, Less, etc.
+- Runs ESLint validation based on **your project's** ESLint configuration
 - Provides detailed error and warning reports
 - Supports automatic fixing of issues
 - Integrates seamlessly with Claude Code workflow
@@ -71,14 +82,28 @@ Customize the `.eslintrc.json` file to match your project's coding standards.
 
 ### Supported File Extensions
 
+**JavaScript/TypeScript:**
 - `.js` - JavaScript
 - `.jsx` - React JavaScript
 - `.ts` - TypeScript
 - `.tsx` - React TypeScript
 - `.mjs` - ES Module JavaScript
 - `.cjs` - CommonJS JavaScript
+- `.vue` - Vue single file components
+
+**Style files (requires appropriate ESLint plugins):**
+- `.css` - CSS
+- `.scss`, `.sass` - Sass
+- `.less` - Less
+- `.styl` - Stylus
 
 ## How It Works
+
+### Prerequisite Check
+1. Verifies the project is a git repository
+2. Checks if ESLint is installed
+3. **Verifies ESLint configuration exists** (mandatory)
+   - If no config found, exits with error message
 
 ### Detection Phase
 1. Runs `git diff --name-only` for unstaged changes
@@ -88,7 +113,7 @@ Customize the `.eslintrc.json` file to match your project's coding standards.
 
 ### Validation Phase
 1. Filters files by supported extensions
-2. Runs `npx eslint [files]` on detected files
+2. Runs `npx eslint [files]` using **your project's ESLint config**
 3. Parses output for errors and warnings
 4. Reports results with file locations
 

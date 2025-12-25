@@ -12,7 +12,11 @@ const path = require('path');
 class ESLintValidator {
   constructor() {
     this.changedFiles = new Set();
-    this.validExtensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'];
+    // Support JavaScript, TypeScript, and style files
+    this.validExtensions = [
+      '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs',
+      '.vue', '.css', '.scss', '.sass', '.less', '.styl'
+    ];
   }
 
   /**
@@ -51,7 +55,7 @@ class ESLintValidator {
   }
 
   /**
-   * Check if ESLint config exists
+   * Check if ESLint config exists in current directory
    */
   hasESLintConfig() {
     const configFiles = [
@@ -60,12 +64,30 @@ class ESLintValidator {
       '.eslintrc.yaml',
       '.eslintrc.yml',
       '.eslintrc.json',
-      '.eslintrc'
+      '.eslintrc',
+      'eslint.config.js',
+      'eslint.config.mjs',
+      'eslint.config.cjs'
     ];
 
-    return configFiles.some(file => fs.existsSync(path.join(process.cwd(), file))) ||
-           fs.existsSync(path.join(process.cwd(), 'package.json')) &&
-           JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'))).eslintConfig;
+    const hasConfigFile = configFiles.some(file =>
+      fs.existsSync(path.join(process.cwd(), file))
+    );
+
+    if (hasConfigFile) return true;
+
+    // Check package.json for eslintConfig
+    const packageJsonPath = path.join(process.cwd(), 'package.json');
+    if (fs.existsSync(packageJsonPath)) {
+      try {
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+        return !!packageJson.eslintConfig;
+      } catch {
+        return false;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -155,8 +177,15 @@ class ESLintValidator {
       process.exit(1);
     }
 
+    // Must have ESLint config to run
     if (!this.hasESLintConfig()) {
-      console.warn('⚠️  Warning: No ESLint configuration found');
+      console.error('❌ Error: No ESLint configuration found in the project');
+      console.error('   This skill requires an ESLint config file to run.');
+      console.error('   Supported config files:');
+      console.error('   - .eslintrc.json, .eslintrc.js, .eslintrc.yml');
+      console.error('   - eslint.config.js (flat config)');
+      console.error('   - eslintConfig in package.json');
+      process.exit(1);
     }
 
     // Get changed files
@@ -164,7 +193,7 @@ class ESLintValidator {
     const files = this.getChangedFiles();
 
     if (files.length === 0) {
-      console.log('✅ No changed JavaScript/TypeScript files found');
+      console.log('✅ No changed files found for linting');
       return;
     }
 
