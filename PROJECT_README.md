@@ -58,15 +58,6 @@ node skills/eslint-reviewer/scripts/validate-and-fix.js
 node skills/eslint-reviewer/scripts/validate-and-fix.js --fix
 ```
 
-## 🌐 在线演示
-
-已部署的 Web 版本：**https://abrahamhan_eslintskills.anker-launch.com**
-
-功能：
-- 📄 查看完整文档
-- 🔌 API 接口访问
-- 📁 浏览所有配置文件和示例
-- 🎨 友好的 Web 界面
 
 ## ⚙️ 插件配置
 
@@ -147,10 +138,8 @@ node skills/eslint-reviewer/scripts/validate-and-fix.js --fix
 ## 🚀 部署信息
 
 ### Docker 部署
-- **域名**: https://abrahamhan_eslintskills.anker-launch.com
 - **基础镜像**: node:20.19-alpine
 - **运行端口**: 3000
-- **部署时间**: 2025-12-25
 
 ### 本地开发
 ```bash
@@ -165,18 +154,6 @@ npm run validate
 ```
 
 ## 🧪 测试
-
-### API 测试
-```bash
-# 测试首页
-curl https://abrahamhan_eslintskills.anker-launch.com/
-
-# 获取 README
-curl https://abrahamhan_eslintskills.anker-launch.com/api/readme
-
-# 获取使用指南
-curl https://abrahamhan_eslintskills.anker-launch.com/api/usage
-```
 
 ### 功能测试
 ```bash

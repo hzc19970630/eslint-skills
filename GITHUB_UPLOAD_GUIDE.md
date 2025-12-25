@@ -191,12 +191,6 @@ git push
 A professional Claude Code skills plugin for ESLint validation and auto-fixing
 ```
 
-### 3. 添加仓库 URL
-
-在 "Website" 字段添加部署的 URL：
-```
-https://abrahamhan_eslintskills.anker-launch.com
-```
 
 ---
 
@@ -221,8 +215,6 @@ https://abrahamhan_eslintskills.anker-launch.com
      - ✅ Multiple file types support
      - ✅ Web interface
 
-     ### Deployment
-     Live demo: https://abrahamhan_eslintskills.anker-launch.com
      ```
 3. 点击 "Publish release"
 
@@ -292,7 +284,7 @@ https://github.com/YOUR_USERNAME/REPO_NAME
 
 A professional Claude Code skills plugin for ESLint validation and auto-fixing.
 
-[Live Demo](https://abrahamhan_eslintskills.anker-launch.com) | [Documentation](docs/README.md)
+[Documentation](docs/README.md)
 ```
 
 ---
