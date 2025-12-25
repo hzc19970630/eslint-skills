@@ -3,11 +3,15 @@
  * 创建不同类型的验证器实例
  */
 const ESLintValidator = require('./ESLintValidator');
+const PythonValidator = require('./PythonValidator');
+const JavaValidator = require('./JavaValidator');
+const GoValidator = require('./GoValidator');
+const RustValidator = require('./RustValidator');
 
 class ValidatorFactory {
   /**
    * 创建验证器
-   * @param {string} type - 验证器类型 ('eslint', 'prettier', etc.)
+   * @param {string} type - 验证器类型 ('eslint', 'python', 'java', 'go', 'rust', etc.)
    * @param {Object} dependencies - 依赖注入
    * @returns {Validator} 验证器实例
    */
@@ -16,14 +20,30 @@ class ValidatorFactory {
       case 'eslint':
         return new ESLintValidator(dependencies);
       
-      // 未来可以扩展其他验证器
+      case 'python':
+        return new PythonValidator(dependencies);
+      
+      case 'java':
+        return new JavaValidator(dependencies);
+      
+      case 'go':
+        return new GoValidator(dependencies);
+      
+      case 'rust':
+        return new RustValidator(dependencies);
       // case 'prettier':
       //   return new PrettierValidator(dependencies);
       // case 'stylelint':
       //   return new StylelintValidator(dependencies);
       
       default:
-        throw new Error(`Unknown validator type: ${type}. Supported types: eslint`);
+        // 检查是否已注册自定义验证器
+        if (this.validators && this.validators[type.toLowerCase()]) {
+          const ValidatorClass = this.validators[type.toLowerCase()];
+          return new ValidatorClass(dependencies);
+        }
+        
+        throw new Error(`Unknown validator type: ${type}. Supported types: eslint, python, java, go, rust`);
     }
   }
 
@@ -44,7 +64,7 @@ class ValidatorFactory {
    * @returns {string[]}
    */
   static getRegisteredTypes() {
-    return ['eslint', ...(this.validators ? Object.keys(this.validators) : [])];
+    return ['eslint', 'python', 'java', 'go', 'rust', ...(this.validators ? Object.keys(this.validators) : [])];
   }
 }
 

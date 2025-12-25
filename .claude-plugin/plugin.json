@@ -1,7 +1,7 @@
 {
-  "name": "eslint-code-reviewer",
-  "version": "1.0.0",
-  "description": "A Claude Code skill that automatically validates and fixes code quality issues in git changed files using ESLint configuration",
+  "name": "multi-language-code-reviewer",
+  "version": "2.0.0",
+  "description": "A Claude Code skill that automatically validates and fixes code quality issues in git changed files using language-specific linters. Supports JavaScript/TypeScript/Vue (ESLint), Python (pylint/flake8/black), Java (checkstyle/spotbugs/pmd), Go (golangci-lint/gofmt), and Rust (clippy/rustfmt). Automatically detects file types and applies the appropriate validator.",
   "author": "",
   "license": "MIT",
   "repository": {
@@ -11,14 +11,22 @@
   "skills": [
     {
       "name": "eslint-reviewer",
-      "description": "Automatically validates and fixes code using ESLint rules. Detects changed files in git, runs ESLint validation, and can automatically fix issues. IMPORTANT: This skill ONLY runs if the user's project has an ESLint configuration file.",
+      "description": "Multi-language code validator that automatically detects file types and applies appropriate linters. Supports JavaScript/TypeScript/Vue (ESLint), Python (pylint/flake8/black/mypy), Java (checkstyle/spotbugs/pmd), Go (golangci-lint/gofmt/govet), and Rust (clippy/rustfmt). Detects changed files in git, runs language-specific validation, and can automatically fix issues when supported. Automatically adapts to your project's technology stack.",
       "triggers": [
         "check code quality",
-        "run eslint",
+        "run linter",
         "validate git changes",
         "lint my code",
-        "fix eslint errors",
-        "eslint"
+        "fix code errors",
+        "eslint",
+        "pylint",
+        "checkstyle",
+        "golangci-lint",
+        "clippy",
+        "code review",
+        "validate code",
+        "lint",
+        "fix lint errors"
       ]
     }
   ]
