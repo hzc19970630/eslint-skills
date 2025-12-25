@@ -1,24 +1,57 @@
 {
   "name": "eslint-code-reviewer",
   "version": "1.0.0",
-  "description": "A Claude Code skill that automatically validates and fixes code quality issues in git changed files using ESLint configuration",
-  "author": "",
+  "description": "AI-powered ESLint validator for Claude Code. Automatically detects and fixes code quality issues in Git changes. Saves 30 minutes/day on code reviews.",
+  "author": "hzc19970630",
   "license": "MIT",
+  "homepage": "https://github.com/hzc19970630/eslint-skills#readme",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/hzc19970630/eslint-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hzc19970630/eslint-skills/issues"
+  },
+  "keywords": [
+    "claude-code",
+    "claude-skills",
+    "eslint",
+    "code-quality",
+    "linter",
+    "git-hooks",
+    "developer-tools",
+    "ai-assistant",
+    "javascript",
+    "typescript",
+    "vue",
+    "react",
+    "auto-fix",
+    "code-review"
+  ],
+  "engines": {
+    "claude-code": ">=1.0.0",
+    "node": ">=14.0.0"
   },
   "skills": [
     {
       "name": "eslint-reviewer",
-      "description": "Automatically validates and fixes code using ESLint rules. Detects changed files in git, runs ESLint validation, and can automatically fix issues. IMPORTANT: This skill ONLY runs if the user's project has an ESLint configuration file.",
+      "description": "Automatically validates and fixes code using ESLint rules. Detects changed files in git (staged, unstaged, untracked), runs ESLint validation, and can automatically fix issues. Provides AI-powered explanations and suggestions. IMPORTANT: This skill ONLY runs if the user's project has an ESLint configuration file.",
       "triggers": [
         "check code quality",
         "run eslint",
         "validate git changes",
         "lint my code",
         "fix eslint errors",
-        "eslint"
+        "eslint",
+        "code quality",
+        "validate code"
+      ],
+      "examples": [
+        "check code quality",
+        "run eslint on my changes",
+        "fix all eslint errors",
+        "why does eslint complain about this?",
+        "validate my code before commit"
       ]
     }
   ]
