@@ -80,6 +80,57 @@ The project includes a default `.eslintrc.json` with common rules:
 
 Customize the `.eslintrc.json` file to match your project's coding standards.
 
+### Vue.js Configuration
+
+If your project uses Vue.js, you need to configure ESLint to parse `.vue` files:
+
+**1. Install required packages:**
+```bash
+npm install --save-dev eslint-plugin-vue vue-eslint-parser
+```
+
+**2. Update your ESLint config:**
+
+For `.eslintrc.json`:
+```json
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["vue"]
+}
+```
+
+For `eslint.config.js` (ESLint 9+):
+```javascript
+import vue from 'eslint-plugin-vue';
+import vueParser from 'vue-eslint-parser';
+
+export default [
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser
+    },
+    plugins: { vue },
+    rules: {
+      ...vue.configs['vue3-recommended'].rules
+    }
+  }
+];
+```
+
+See example files in `scripts/` directory:
+- `.eslintrc.vue.json` - Traditional config example
+- `eslint.config.vue.js` - Flat config example
+
 ### Supported File Extensions
 
 **JavaScript/TypeScript:**
@@ -96,6 +147,18 @@ Customize the `.eslintrc.json` file to match your project's coding standards.
 - `.scss`, `.sass` - Sass
 - `.less` - Less
 - `.styl` - Stylus
+
+**⚠️ Important for Vue files:**
+Vue single file components (`.vue`) require special ESLint configuration. If you see parsing errors for Vue files, you need to:
+
+1. Install Vue ESLint plugin:
+   ```bash
+   npm install --save-dev eslint-plugin-vue vue-eslint-parser
+   ```
+
+2. Configure ESLint for Vue. See example configurations:
+   - `.eslintrc.vue.json` (traditional config)
+   - `eslint.config.vue.js` (flat config for ESLint 9+)
 
 ## How It Works
 

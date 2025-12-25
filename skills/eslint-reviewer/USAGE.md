@@ -78,6 +78,11 @@ If you see:
 - "Not a git repository" → Initialize git with `git init`
 - "ESLint is not installed" → Run `npm install eslint`
 - "No ESLint configuration found" → Create an ESLint config file
+- **"Parsing error: Unexpected keyword or identifier" for `.vue` files** → Install and configure Vue ESLint plugin:
+  ```bash
+  npm install --save-dev eslint-plugin-vue vue-eslint-parser
+  ```
+  Then update your ESLint config to include Vue support (see README.md for examples)
 
 ## Configuration
 
