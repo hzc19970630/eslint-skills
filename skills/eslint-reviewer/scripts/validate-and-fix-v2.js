@@ -145,7 +145,7 @@ function main() {
     fix: args.includes('--fix'),
     verbose: args.includes('--verbose') || args.includes('-v'),
     silent: args.includes('--silent') || args.includes('-s'),
-    config: (() => {
+    configPath: (() => {
       const configIndex = args.indexOf('--config');
       return configIndex > -1 && args[configIndex + 1]
         ? args[configIndex + 1]
