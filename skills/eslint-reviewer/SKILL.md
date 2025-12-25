@@ -100,7 +100,7 @@ Then show the results after fixing.
 - The skill uses the user's project ESLint configuration, not a default one
 - Handle cases where there are no changed files gracefully
 - Provide clear, actionable feedback about code quality issues
-- Use the validate-and-fix.js script for automated workflow: `node validate-and-fix-v2.js`
+- Use the validate-and-fix-v2.js script for automated workflow: `node validate-and-fix-v2.js`
 
 ## Example Interactions
 
