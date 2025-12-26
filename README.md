@@ -11,7 +11,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skills-blueviolet)](https://docs.anthropic.com/claude/docs/claude-code-skills)
 [![ESLint](https://img.shields.io/badge/ESLint-Powered-4B32C3?logo=eslint)](https://eslint.org/)
 
-[English](#) | [中文文档](#)
+[English](README.md) | [中文文档](README_zh-CN.md)
 
 </div>
 
